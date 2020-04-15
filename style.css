@@ -1,0 +1,86 @@
+.red {
+    background: red !important;
+}
+
+.yellow {
+    background: yellow !important;
+}
+
+body { margin:  0; }
+
+game {
+    display: block;
+}
+
+board {
+    max-width: 500px;
+    max-height: 428px;
+    margin: auto;
+    width: 96vw;
+    height: 86vw;
+    display: block;
+    background: blue;
+    padding: 1vw;
+    border-radius: 8%;
+    overflow: hidden;
+}
+
+.board-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    height: 100%;
+}
+
+.board-column {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    flex-grow: 1;
+    background-color: blue;
+    border-radius: 8%;
+    transition: all .35s;
+}
+
+.board-column:hover .slot.default {
+    background-color: rgb(230, 230, 230) !important;
+}
+
+piece {
+    flex-grow: 1;
+    display: block;
+}
+
+.slot-container {
+    width: 80%;
+    height: 80%;
+    margin: 10%;
+    border-radius: 50%;
+    cursor: pointer;
+    background: white;
+}
+
+.slot {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.slot.red, .slot.yellow {
+    cursor: default !important;
+    animation: .75s drop ease both;
+}
+
+@keyframes drop {
+    from {
+        opacity: 0;
+        transform: translateY(-50vw)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(1);
+    }
+}
