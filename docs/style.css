@@ -1,3 +1,7 @@
+.hide {
+    display: none;
+}
+
 .red {
     background: red !important;
 }
@@ -75,7 +79,7 @@ piece {
 
 @keyframes drop {
     from {
-        opacity: 0;
+        opacity: .7;
         transform: translateY(-50vw)
     }
 

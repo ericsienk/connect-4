@@ -33,6 +33,15 @@ export class Component {
         return this.context.querySelector(selector).value;
     }
 
+    setClass(selector, className, enable) {
+        const element = this.context.querySelector(selector);
+        if (enable) {
+            element.classList.add(className);
+        } else {
+            element.classList.remove(className);
+        }
+    }
+
     evalBinding(binding) {
         return eval(binding);
     }

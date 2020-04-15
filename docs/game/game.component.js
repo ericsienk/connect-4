@@ -10,7 +10,8 @@ export class Game extends Component {
             this.turnIndex = 0;
             this.players = PlayerArray;
             this.gameId = '';
-            this.options = {
+
+            this.board = {
                 onlinePlayerColor: null,
                 playerGoingNext: this.players[this.turnIndex % 2],
                 onWinner: (winner) => {
@@ -19,7 +20,7 @@ export class Game extends Component {
                 onPieceClick: (moveData) => {
                     this.togglePlayerGoingNext();
 
-                    if (moveData.color === this.options.onlinePlayerColor) {
+                    if (moveData.color === this.board.onlinePlayerColor) {
                         this.gameService.sendMove(moveData, () => {
                             console.log('Player recieved action!');
                         });
@@ -28,46 +29,35 @@ export class Game extends Component {
                 scope: {}
             };
 
+            this.settings = {
+                onStartGame: ({ player, online }) => {
+                    console.log(`Starting game as ${JSON.stringify(player)} :: online - ${online}`);
+                    this.board.onlinePlayerColor = online ? player.name : null;
+                    super.setClass('#game-settings', 'hide', true);
+                    super.setClass('#game-board', 'hide', false);
+                }
+            }
+
             this.gameService.retrieveMoves((moveData) => {
-                this.options.scope.movePiece(moveData);
-            });
-
-            super.onClick('#generateCodeBtn', () => {
-                this.thinking = true;
-                this.gameService.creatSession((gameId) => {
-                    this.thinking = false;
-                    super.setInput('input', gameId);
-                }, () => {
-                        this.online = true;
-                        this.options.onlinePlayerColor = Players.Red.name;
-                        console.log('Start game!');
-                });
-            });
-
-            super.onClick('#connectCodeBtn', () => {
-                this.gameService.connectSession(super.getInput('input'), () => {
-                    this.online = true;
-                    this.options.onlinePlayerColor = Players.Yellow.name;
-                    console.log('Start game!');
-                });
+                this.board.scope.movePiece(moveData);
             });
         });
     }
 
     togglePlayerGoingNext() {
         this.turnIndex++;
-        this.options.playerGoingNext = this.players[this.turnIndex % 2];
+        this.board.playerGoingNext = this.players[this.turnIndex % 2];
     }
 
     static template = `
-        <input>
-        <button id="generateCodeBtn">Generate Code</button>
-        <button id="connectCodeBtn">Connect Code</button>
-        <button id="sendDataBtn">Send Data</button>
-        <span>Thinking: {{this.thinking}}</span>
-        <div>Player that goes next: {{this.options.playerGoingNext}}</div>
-        <div style="display: inline-block">{{this.winner}}</div>
-        <board options="{{this.options}}"></board>
+        <div id="game-settings">
+            <settings options="{{this.settings}}"></settings>
+        </div>
+        <div id="game-board" class="hide">
+            <div>Player that goes next: {{this.board.playerGoingNext}}</div>
+            <span>{{this.winner}}</span>
+            <board options="{{this.board}}"></board>
+        </div>
     `;
     static selector = 'game';
 }
