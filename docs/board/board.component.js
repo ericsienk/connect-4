@@ -25,6 +25,7 @@ export class Board extends Component {
                 columnElement.querySelectorAll('button')[playerMove.row].click();
                 this.options.board.onPieceClick({columnIndex, color});
 
+                this.isWinner = playerMove.isWinner;
                 if (playerMove.isWinner) {
                     this.options.board.onWinner(color);
                 }
@@ -42,7 +43,11 @@ export class Board extends Component {
 
     isMoveAllowed(event, color) {
         // if local play, online opponent move, online move color matches player's color
-        return !this.attr.options.onlinePlayerColor || !event.isTrusted || (this.attr.options.onlinePlayerColor === color);
+        return !this.isWinner && (
+            !this.attr.options.onlinePlayerColor ||
+            !event.isTrusted ||
+            (this.attr.options.onlinePlayerColor === color)
+        );
     }
 
     static selector = 'board';

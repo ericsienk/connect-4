@@ -16,6 +16,7 @@ export class Game extends Component {
                 playerGoingNext: this.players[this.turnIndex % 2],
                 onWinner: (winner) => {
                     this.winner = winner;
+                    super.setClass('#winner', 'hide', false);
                 },
                 onPieceClick: (moveData) => {
                     this.togglePlayerGoingNext();
@@ -49,15 +50,21 @@ export class Game extends Component {
         this.board.playerGoingNext = this.players[this.turnIndex % 2];
     }
 
+    static selector = 'game';
     static template = `
         <div id="game-settings">
             <settings options="{{this.settings}}"></settings>
         </div>
         <div id="game-board" class="hide">
-            <div>Player that goes next: {{this.board.playerGoingNext}}</div>
-            <span>{{this.winner}}</span>
+            <div class="info-bar">
+                <span class="info-bar-item">
+                    <span class="bold">Player that goes next - </span> {{this.board.playerGoingNext}}
+                </span>
+                <span id="winner" class="hide info-bar-item">
+                    <span class="bold">Winner - </span> {{this.winner}}
+                </span>
+            </div>
             <board options="{{this.board}}"></board>
         </div>
     `;
-    static selector = 'game';
 }

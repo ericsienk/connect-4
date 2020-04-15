@@ -41,7 +41,7 @@ export class Settings extends Component {
     static selector = 'settings';
     static template = `
         <div class="settings-menu">
-            <div class="settings-header">Connect 4 Settings</div>
+            <div class="settings-header">Connect 4</div>
             <div class="settings-options">
                 <div class="option">
                     <div>

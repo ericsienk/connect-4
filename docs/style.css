@@ -15,6 +15,10 @@ body {
     font-family: 'Montserrat', sans-serif;
  }
 
+ .bold {
+     font-weight: bold;
+ }
+
 game, settings, board {
     display: block;
 }
@@ -59,6 +63,17 @@ settings, board {
 .caption-text {
     font-size: small;
     margin-bottom: 6px;
+}
+
+.info-bar {
+    width: calc(100% - 24px);
+    background: #efefef;
+    padding: 12px;
+    margin-bottom: 48px;
+}
+
+.info-bar-item {
+    margin-right: 32px;
 }
 
 board {
