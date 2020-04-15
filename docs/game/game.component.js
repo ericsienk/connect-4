@@ -33,6 +33,7 @@ export class Game extends Component {
             this.settings = {
                 onStartGame: ({ player, online }) => {
                     console.log(`Starting game as ${JSON.stringify(player)} :: online - ${online}`);
+                    this.playerColor = online ? player.name : this.board.playerGoingNext;
                     this.board.onlinePlayerColor = online ? player.name : null;
                     super.setClass('#game-settings', 'hide', true);
                     super.setClass('#game-board', 'hide', false);
@@ -62,6 +63,9 @@ export class Game extends Component {
                 </span>
                 <span id="winner" class="hide info-bar-item">
                     <span class="bold">Winner - </span> {{this.winner}}
+                </span>
+                <span class="info-bar-item" style="float:right">
+                    <span class="bold">You are - </span> {{this.playerColor}}
                 </span>
             </div>
             <board options="{{this.board}}"></board>
