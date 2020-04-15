@@ -35,7 +35,7 @@ export class Settings extends Component {
     onGameId(gameId) {
         super.setClass('#share-url', 'hide', false);
         super.setInput('#share-url', window.location.href + '?session=' + gameId);
-        this.loader = 'Share this url with your opponent. Waiting for opponent to join...';
+        this.loader = 'Share this url with your opponent. Please wait while your opponent enters the game.';
     }
 
     static selector = 'settings';
@@ -45,17 +45,18 @@ export class Settings extends Component {
             <div class="settings-options">
                 <div class="option">
                     <div>
-                        <div>Mode</div>
+                        <div class="settings-options-title">Mode</div>
                         <div>
-                            <input type="radio" name="mode" id="online-mode">Online
-                            <input type="radio" name="mode" id="offline-mode">Offline
+                            <input type="radio" name="mode" id="online-mode"><label for="online-mode">Online</label>
+                            <input type="radio" name="mode" id="offline-mode"><label for="offline-mode">Offline</label>
                         </div>
                     </div>
+                    <br/>
                     <div id="online-options" class="hide">
-                        <div>Online Session</div>
+                        <div class="settings-options-title">Online Session</div>
                         <div>
-                            <div>{{this.loader}}<div>
-                            <input id="share-url" class="hide">
+                            <div class="caption-text">{{this.loader}}<div>
+                            <input id="share-url" onclick="this.select()" class="hide share-url">
                         </div>
                     </div>
                 </div>

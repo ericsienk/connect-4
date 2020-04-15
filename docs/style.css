@@ -10,23 +10,60 @@
     background: yellow !important;
 }
 
-body { margin:  0; }
+body { 
+    margin:  0;
+    font-family: 'Montserrat', sans-serif;
+ }
 
-game {
+game, settings, board {
     display: block;
 }
 
-board {
+.share-url {
+    margin: 9px;
+    width: 100%;
+    padding: 9px;
+    text-align: center;
+}
+
+settings, board {
     max-width: 500px;
     max-height: 428px;
     margin: auto;
     width: 96vw;
     height: 86vw;
-    display: block;
-    background: blue;
-    padding: 1vw;
     border-radius: 8%;
     overflow: hidden;
+}
+
+.settings-menu {
+    padding: 5%;
+    text-align: center;
+}
+
+.settings-header {
+    font-size: x-large;
+}
+
+.settings-options {
+    padding: 5%;
+}
+
+.settings-options-title {
+    margin-top: 18px;
+    margin-bottom: 9px;
+    font-size: large;
+    font-weight: 400;
+}
+
+.caption-text {
+    font-size: small;
+    margin-bottom: 6px;
+}
+
+board {
+    padding: 1vw;
+    background: blue;
 }
 
 .board-container {
