@@ -8,7 +8,7 @@
     "copy:html": "copyfiles src/index.html src/style.css src/favicon.ico docs --flat",
     "rollup": "rollup --config rollup.config.js",
     "transpile": "terser --compress --module docs/index.js docs/index.js -o docs/index.js",
-    "build": "npm run clean:docs && npm run copy:html && npm run rollup && npm run transpile"
+    "build": "npm run clean:docs && npm run copy:html && npm run rollup && npm run transpile && git add docs"
   },
   "pre-commit": ["build"],
   "repository": {
