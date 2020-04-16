@@ -10,6 +10,7 @@
     "transpile": "terser --compress --module docs/index.js docs/index.js -o docs/index.js",
     "build": "npm run clean:docs && npm run copy:html && npm run rollup && npm run transpile"
   },
+  "pre-commit": ["build"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ericsienk/connect-4.git"
@@ -26,6 +27,7 @@
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.9.5",
     "copyfiles": "^2.2.0",
+    "pre-commit": "^1.2.2",
     "rollup": "^2.6.1",
     "rollup-plugin-babel": "^4.4.0",
     "terser": "^4.6.11"
