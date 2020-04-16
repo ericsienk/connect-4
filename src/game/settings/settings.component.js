@@ -38,6 +38,7 @@ export class Settings extends Component {
         this.loader = 'Share this url with your opponent. Please wait while your opponent enters the game.';
     }
 
+    static services = ['gameService'];
     static selector = 'settings';
     static template = /*html*/`
         <div class="settings-menu">

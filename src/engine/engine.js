@@ -1,11 +1,6 @@
 import { Injector } from "./injector.js";
 
 const componentMap = {};
-
-function getArgs(obj) {
-    var args = (obj.toString().match(/constructor\s*?\(([^)]*)\)/) || ['', ''])[1];
-    return args.split(',').map((arg) => arg.replace(/\/\*.*\*\//, '').trim()).filter(x => x);
-}
   
 function camelCase(attribute) {
     return attribute.nodeName.split('-')
@@ -18,6 +13,7 @@ export class Engine {
         components.forEach(c => {
             componentMap[c.selector.toLowerCase()] = {
                 template: c.template,
+                services: c.services || [],
                 constructor: c
             };
         });
@@ -52,7 +48,7 @@ export class Engine {
                 }
 
                 e.innerHTML = componentMap[nodeName].template;
-                const services = getArgs(componentMap[nodeName].constructor).map((s) => Injector.get(s));
+                const services = componentMap[nodeName].services.map((s) => Injector.get(s));
                 newParentContext = new componentMap[nodeName].constructor(...services);
                 newParentContext.init(e, attr);
             }

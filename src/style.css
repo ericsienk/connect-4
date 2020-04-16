@@ -1,0 +1,213 @@
+.hide {
+    display: none;
+}
+
+.red {
+    background: red !important;
+    box-shadow: inset 0px 0px 0px 7px #c10202;
+}
+
+.yellow {
+    background: yellow !important;
+    box-shadow: inset 0px 0px 0px 7px #d6d600;
+}
+
+body { 
+    margin:  0;
+    font-family: 'Montserrat', sans-serif;
+    background: #b4c9ff;
+ }
+
+ #main {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+ }
+
+ .bold {
+     font-weight: bold;
+ }
+
+game, settings, board {
+    display: block;
+}
+
+.share-url {
+    margin: 9px;
+    width: 100%;
+    padding: 9px;
+    text-align: center;
+}
+
+settings, board {
+    max-width: 500px;
+    max-height: 428px;
+    margin: auto;
+    width: 96vw;
+    height: 86vw;
+    overflow: hidden;
+}
+
+.settings-menu {
+    padding: 5%;
+    text-align: center;
+    background: white;
+    margin: 18px;
+    border-radius: 18px;
+    box-shadow: 0px 6px 0px 0px #a5a5dc;
+}
+
+.settings-header {
+    font-size: x-large;
+}
+
+.settings-options {
+    padding: 5%;
+}
+
+.settings-options-title {
+    margin-top: 18px;
+    margin-bottom: 9px;
+    font-size: large;
+    font-weight: 400;
+}
+
+.caption-text {
+    font-size: small;
+    margin-bottom: 6px;
+}
+
+.info-bar {
+    width: calc(100% - 24px);
+    max-width: 400px;
+    margin: auto;
+    background: white;
+    padding: 12px;
+    margin-bottom: 48px;
+    text-align: center;
+    border-radius: 12px;
+    margin-top: 10px;
+    box-shadow: 1px 3px 0px 0px #a5a5dc;
+}
+
+.info-bar-item {
+    margin-right: 32px;
+}
+
+board {
+    padding: 1vw;
+    background: blue;
+    background: linear-gradient(0deg, rgba(36,34,195,1) 0%, rgba(34,129,195,1) 100%);
+    border-radius: 8%;
+}
+
+.board-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    height: 100%;
+}
+
+.board-column {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    flex-grow: 1;
+    border-radius: 8%;
+    transition: all .35s;
+}
+
+piece {
+    flex-grow: 1;
+    display: block;
+}
+
+.slot-container {
+    width: 80%;
+    height: 80%;
+    max-width: 55px;
+    max-height: 55px;
+    margin: 10%;
+    border-radius: 50%;
+    cursor: pointer;
+    background: #b4c9ff;
+    box-shadow: inset 0px 7px 0px 0px #a5a5dc;
+}
+
+.slot {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.slot.red, .slot.yellow {
+    cursor: default !important;
+    animation: .75s drop ease both;
+}
+
+@keyframes drop {
+    from {
+        opacity: .7;
+        transform: translateY(-50vw)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(1);
+    }
+}
+
+.board-column:hover .slot.default {
+    background-color: rgba(255, 255, 255, 0.54) !important;
+}
+
+.confetti {
+    width: 15px;
+    height: 15px;
+    background-color: #f2d74e;
+    position: absolute;
+    left: 50%;
+    animation: confetti 5s ease-in-out -2s infinite;
+    transform-origin: left top;
+  }
+  .confetti:nth-child(1) {
+    background-color: #f2d74e; left: 10%; animation-delay: 0;
+  }
+  .confetti:nth-child(2) {
+    background-color: #95c3de; left: 20%; animation-delay: -5s;
+  }
+  .confetti:nth-child(3) {
+    background-color: #ff9a91; left: 30%; animation-delay: -3s;
+  }
+  .confetti:nth-child(4) {
+    background-color: #f2d74e; left: 40%; animation-delay: -2.5s;
+  }
+  .confetti:nth-child(5) {
+    background-color: #95c3de; left: 50%; animation-delay: -4s;
+  }
+  .confetti:nth-child(6) {
+    background-color: #ff9a91; left: 60%; animation-delay: -6s;
+  }
+  .confetti:nth-child(7) {
+    background-color: #f2d74e; left: 70%; animation-delay: -1.5s;
+  }
+  .confetti:nth-child(8) {
+    background-color: #95c3de; left: 80%; animation-delay: -2s;
+  }
+  .confetti:nth-child(9) {
+    background-color: #ff9a91; left: 90%; animation-delay: -3.5s;
+  }
+  .confetti:nth-child(10) {
+    background-color: #f2d74e; left: 100%; animation-delay: -2.5s;
+  }
+
+  @keyframes confetti {
+    0% { transform: rotateZ(15deg) rotateY(0deg) translate(0,0); }
+    25% { transform: rotateZ(5deg) rotateY(360deg) translate(-5vw,20vh); }
+    50% { transform: rotateZ(15deg) rotateY(720deg) translate(5vw,60vh); }
+    75% { transform: rotateZ(5deg) rotateY(1080deg) translate(-10vw,80vh); }
+    100% { transform: rotateZ(15deg) rotateY(1440deg) translate(10vw,110vh); }
+  }

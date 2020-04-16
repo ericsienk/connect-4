@@ -1,0 +1,33 @@
+{
+  "name": "connect-4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "clean:docs": "rm -rf docs",
+    "copy:html": "copyfiles src/index.html src/style.css docs --flat",
+    "rollup": "rollup --config rollup.config.js",
+    "transpile": "terser --compress --module docs/index.js docs/index.js -o docs/index.js",
+    "build": "npm run clean:docs && npm run copy:html && npm run rollup && npm run transpile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericsienk/connect-4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericsienk/connect-4/issues"
+  },
+  "homepage": "https://github.com/ericsienk/connect-4#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/polyfill": "^7.8.7",
+    "@babel/preset-env": "^7.9.5",
+    "copyfiles": "^2.2.0",
+    "rollup": "^2.6.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "terser": "^4.6.11"
+  }
+}

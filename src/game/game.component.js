@@ -1,5 +1,5 @@
 import { Component } from "../engine/component.js";
-import { PlayerArray, Players } from './game.constants.js';
+import { PlayerArray } from './game.constants.js';
 
 export class Game extends Component {
     constructor(gameService) {
@@ -55,6 +55,7 @@ export class Game extends Component {
         this.board.playerGoingNext = this.players[this.turnIndex % 2];
     }
 
+    static services = ['gameService'];
     static selector = 'game';
     static template = /*html*/`
         ${Array.from(Array(10)).map(() =>'<div class="confetti hide"></div>').join('')}
