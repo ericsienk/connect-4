@@ -135,6 +135,8 @@ piece {
     cursor: pointer;
     background: #b4c9ff;
     box-shadow: inset 0px 7px 0px 0px #a5a5dc;
+    transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
 }
 
 .slot {
@@ -151,12 +153,14 @@ piece {
 @keyframes drop {
     from {
         opacity: .7;
-        transform: translateY(-50vw)
+        transform: translateY(-50vw);
+        -webkit-transform: translateY(-50vw);
     }
 
     to {
         opacity: 1;
-        transform: translateY(1);
+        transform: translate(0, 0);
+        -webkit-transform: translate(0, 0);
     }
 }
 
