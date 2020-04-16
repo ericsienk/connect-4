@@ -22,6 +22,10 @@ export class Board extends Component {
                 }
 
                 const playerMove = this.service.claimSpot(columnIndex, color);
+                if (!playerMove) {
+                    return; // piece has already been taken
+                }
+
                 columnElement.querySelectorAll('button')[playerMove.row].click();
                 this.options.board.onPieceClick({columnIndex, color});
 

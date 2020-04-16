@@ -78,7 +78,7 @@ settings, board {
 }
 
 .info-bar {
-    width: calc(100% - 24px);
+    width: calc(95% - 24px);
     max-width: 400px;
     margin: auto;
     background: white;

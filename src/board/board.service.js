@@ -26,7 +26,7 @@ export class BoardService {
     }
 
     determineAvailableRowSpot(col) {
-        for (let i = this.grid.length - 1; i > 0; i--) {
+        for (let i = this.grid.length - 1; i >= 0; i--) {
             if (!this.grid[i][col]) {
                 return i;
             }
@@ -35,6 +35,10 @@ export class BoardService {
 
     claimSpot(col, color) {
         const row = this.determineAvailableRowSpot(col);
+        if (row === undefined) {
+            return;
+        }
+
         this.grid[row][col] = (color === Players.Red.name) ? Players.Red.value : Players.Yellow.value;
         const moveData = this.hasWinner();
         return {
@@ -47,8 +51,8 @@ export class BoardService {
     }
 
     _checkLineStrategy(row, col, onGetLine) {
-        for (let r = row.inital || 0; r < row.size; r++) {
-            for (let c = col.inital || 0; c < col.size; c++) {
+        for (let r = (row.initial || 0); r < row.size; r++) {
+            for (let c = (col.initial || 0); c < col.size; c++) {
                 const line = onGetLine(r, c);
                 const lineCheck = (
                     this.grid[line[0].x][line[0].y] !== 0 &&
