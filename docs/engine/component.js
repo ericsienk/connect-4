@@ -34,12 +34,14 @@ export class Component {
     }
 
     setClass(selector, className, enable) {
-        const element = this.context.querySelector(selector);
-        if (enable) {
-            element.classList.add(className);
-        } else {
-            element.classList.remove(className);
-        }
+        const elements = this.context.querySelectorAll(selector);
+        elements.forEach((element) => {
+            if (enable) {
+                element.classList.add(className);
+            } else {
+                element.classList.remove(className);
+            }
+        });
     }
 
     evalBinding(binding) {

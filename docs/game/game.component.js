@@ -17,6 +17,10 @@ export class Game extends Component {
                 onWinner: (winner) => {
                     this.winner = winner;
                     super.setClass('#winner', 'hide', false);
+                    super.setClass('#turn', 'hide', true);
+                    setTimeout(() => {
+                        super.setClass('.confetti', 'hide', false);
+                    }, 750);
                 },
                 onPieceClick: (moveData) => {
                     this.togglePlayerGoingNext();
@@ -52,20 +56,20 @@ export class Game extends Component {
     }
 
     static selector = 'game';
-    static template = `
+    static template = /*html*/`
+        ${Array.from(Array(10)).map(() =>'<div class="confetti hide"></div>').join('')}
         <div id="game-settings">
             <settings options="{{this.settings}}"></settings>
         </div>
         <div id="game-board" class="hide">
             <div class="info-bar">
-                <span class="info-bar-item">
-                    <span class="bold">Player that goes next - </span> {{this.board.playerGoingNext}}
+                <span id="turn" class="info-bar-item">
+                    <span class="bold">
+                        {{this.board.playerGoingNext + 's turn'}}
+                    </span>
                 </span>
                 <span id="winner" class="hide info-bar-item">
-                    <span class="bold">Winner - </span> {{this.winner}}
-                </span>
-                <span class="info-bar-item" style="float:right">
-                    <span class="bold">You are - </span> {{this.playerColor}}
+                    <span class="bold">{{this.winner + ' won!'}}</span>
                 </span>
             </div>
             <board options="{{this.board}}"></board>

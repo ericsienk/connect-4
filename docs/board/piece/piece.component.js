@@ -18,7 +18,7 @@ export class Piece extends Component {
     }
 
     static selector = 'piece';
-    static template = `
+    static template = /*html*/`
     <div class="slot-container">
         <div class="slot default">
             <button style="display:none"></button>

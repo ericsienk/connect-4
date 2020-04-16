@@ -39,7 +39,7 @@ export class Settings extends Component {
     }
 
     static selector = 'settings';
-    static template = `
+    static template = /*html*/`
         <div class="settings-menu">
             <div class="settings-header">Connect 4</div>
             <div class="settings-options">

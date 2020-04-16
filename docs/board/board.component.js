@@ -3,7 +3,7 @@ import { BoardService } from "./board.service.js";
 import { DefaultGrid } from '../game/game.constants.js';
 
 function getColumn(index) {
-    return `
+    return /*html*/`
         <div class="board-column" id="boardColumn${index}">
             ${Array.from(Array(DefaultGrid.rows).keys()).map((a, i) => `
                     <piece id="piece${i}Row${index}" options={{this.options}}></piece>
@@ -51,7 +51,7 @@ export class Board extends Component {
     }
 
     static selector = 'board';
-    static template = `
+    static template = /*html*/`
         <div class="board-container">
             ${Array.from(Array(DefaultGrid.columns).keys()).map((a, i) => getColumn(i)).join('')}
         </div>`;
