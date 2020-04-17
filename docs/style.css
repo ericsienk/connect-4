@@ -115,6 +115,15 @@ board {
     height: 100%;
 }
 
+.board-container .board-column:first-child,
+.board-container .board-column:nth-child(7),
+.board-column piece:first-child,
+.board-column piece:nth-child(6) {
+    flex: 1;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+}
+
 .board-column {
     display: -webkit-flex;
     display: flex;
