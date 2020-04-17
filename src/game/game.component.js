@@ -1,5 +1,5 @@
 import { Component } from "../engine/component.js";
-import { PlayerArray } from './game.constants.js';
+import { PlayerArray, Players } from './game.constants.js';
 
 export class Game extends Component {
     constructor(gameService) {
@@ -40,6 +40,7 @@ export class Game extends Component {
                 onStartGame: (session) => {
                     const { player, online, playerGoingNext } = session;
                     this.board.playerGoingNext = playerGoingNext || this.board.playerGoingNext;
+                    this.setTurnIcon();
                     this.turnIndex = this.players.indexOf(this.board.playerGoingNext);
                     console.log(`Starting game as ${JSON.stringify(player)} :: online - ${online}`);
                     
@@ -61,9 +62,15 @@ export class Game extends Component {
         });
     }
 
+    setTurnIcon() {
+        super.setClass('.turn-icon', 'yellow', this.board.playerGoingNext === Players.Yellow.name);
+        super.setClass('.turn-icon', 'red', this.board.playerGoingNext === Players.Red.name);
+    }
+
     togglePlayerGoingNext() {
         this.turnIndex++;
         this.board.playerGoingNext = this.players[this.turnIndex % 2];
+        this.setTurnIcon();
     }
 
     get turnInfo() {
@@ -84,6 +91,8 @@ export class Game extends Component {
         </div>
         <div id="game-board" class="hide">
             <div class="info-bar">
+                <new-game></new-game>
+                <div class="turn-icon"></div>
                 <span id="turn" class="info-bar-item">
                     <span class="bold">
                         {{this.turnInfo}}

@@ -24,6 +24,10 @@ export class Engine {
         this.render(context);
     }
 
+    isComponent(selector) {
+        return Boolean(componentMap[selector.toLowerCase()]);
+    }
+
     destroy() {
         this.components.forEach(c => c.destroy());
         console.log('Engine destroyed!');
