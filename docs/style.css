@@ -20,7 +20,7 @@ body {
 
  #context {
     height: 100vh;
-    min-height: 100vw;
+    min-height: 539px;
     width: 100vw;
     max-width: 100%;
     overflow: hidden;
@@ -105,25 +105,33 @@ board {
 }
 
 .board-container {
+    display: -webkit-flex;
     display: flex;
     flex-direction: row;
+    -webkit-flex-direction: row;
     flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
     align-items: stretch;
     height: 100%;
 }
 
 .board-column {
+    display: -webkit-flex;
     display: flex;
     flex-direction: column;
+    -webkit-flex-direction: column;
     flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
     align-items: stretch;
     flex-grow: 1;
+    -webkit-flex-grow: 1;
     border-radius: 8%;
     transition: all .35s;
 }
 
 piece {
     flex-grow: 1;
+    -webkit-flex-grow: 1;
     display: block;
 }
 
@@ -151,7 +159,12 @@ piece {
 
 .slot.red, .slot.yellow {
     cursor: default !important;
-    animation: .75s drop ease backwards;
+    animation: .75s drop ease forwards;
+    animation-iteration-count: 1;
+    -webkit-animation: .75s drop ease forwards;
+    -webkit-animation-iteration-count: 1;
+    transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
 }
 
 @keyframes drop {
