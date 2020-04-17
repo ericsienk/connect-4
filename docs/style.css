@@ -112,6 +112,7 @@ board {
     flex-wrap: nowrap;
     -webkit-flex-wrap: nowrap;
     align-items: stretch;
+    -webkit-box-align: stretch;
     height: 100%;
 }
 
@@ -132,6 +133,7 @@ board {
     flex-wrap: nowrap;
     -webkit-flex-wrap: nowrap;
     align-items: stretch;
+    -webkit-box-align: stretch;
     flex-grow: 1;
     -webkit-flex-grow: 1;
     border-radius: 8%;
