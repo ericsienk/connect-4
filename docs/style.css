@@ -232,7 +232,8 @@ piece {
     height: 13px;
     width: 13px;
     border-radius: 50%;
-    margin-right: 9px;
+    margin-right: -9px;
+    margin-top: -3px;
     box-shadow: none;
     border: 2px solid #a5a5dc;
     vertical-align: middle;
