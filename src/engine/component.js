@@ -7,21 +7,38 @@ export class Component {
     }
 
     init(context, attr) {
+        this.listeners = [];
+        this.copy = { innerHTML: context.innerHTML };
         this.context = context;
         this.attr = attr;
         this.onInit();
         setTimeout(() => {
             this.registerWatches(context);
-            setInterval(() => this.watchers.forEach(w => w.call()), 20);
+            const self = this;
+            this.digestLoop = function () {
+                self.watchers.forEach(w => w.call());
+            };
+
+            setInterval(this.digestLoop, 20);
         }, 0);
     }
 
+    destroy() {
+        clearInterval(this.digestLoop);
+        this.listeners.forEach((item) => item.element.removeEventListener('click', item.listener));
+        console.log(`${this.context.tagName} destroyed`);
+    }
+    
     onClick(selector, callback) {
         const elements = this.context === selector ? this.context : this.context.querySelectorAll(selector);
         elements.forEach((element, index) => {
-            element.addEventListener('click', (event) => {
+            const listener = function(event) {
                 callback.apply(this, [event, element, index]);
-            });
+            }
+
+            element.addEventListener('click', listener);
+
+            this.listeners.push({ element, listener });
         });
     }
 

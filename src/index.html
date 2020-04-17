@@ -7,8 +7,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <div id="main">
-            <game></game>
+        <div id="main" class="hide">
+            <div id="context">
+                <game></game>
+            </div>
+            <div class="action-bar">
+                <button id="resetGameBtn">New Game</button>
+            </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/peerjs@1.2.0/dist/peerjs.min.js"></script>
         <script type="module" src="./index.js"></script>

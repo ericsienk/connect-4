@@ -18,6 +18,5 @@ export const DefaultGrid = {
 
 export const GameActions = {
     Move: '[Move] Player moves a piece',
-    Win: '[Win] Player wins the game',
-    Lose: '[Lose] Player loses the game'
+    NEW: '[New] Play requested a new game'
 }

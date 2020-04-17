@@ -10,6 +10,7 @@ function camelCase(attribute) {
 
 export class Engine {
     constructor(context, components = [], services = {}) {
+        this.components = [];
         components.forEach(c => {
             componentMap[c.selector.toLowerCase()] = {
                 template: c.template,
@@ -21,6 +22,11 @@ export class Engine {
         Object.keys(services).forEach(service => Injector.service(services[service], service))
 
         this.render(context);
+    }
+
+    destroy() {
+        this.components.forEach(c => c.destroy());
+        console.log('Engine destroyed!');
     }
 
     render(context, parent = null, parentContext = null) {
@@ -49,7 +55,9 @@ export class Engine {
 
                 e.innerHTML = componentMap[nodeName].template;
                 const services = componentMap[nodeName].services.map((s) => Injector.get(s));
-                newParentContext = new componentMap[nodeName].constructor(...services);
+                const component = new componentMap[nodeName].constructor(...services);
+                this.components.push(component);
+                newParentContext = component;
                 newParentContext.init(e, attr);
             }
             self.render(e, newParent, newParentContext);

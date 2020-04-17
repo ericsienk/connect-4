@@ -7,6 +7,8 @@ function initialize() {
     });
 
     peer.on('error', function (err) {
+        window.location.replace(window.location.href.split('?')[0]);
+        alert('Sorry an unexpected error ocurred. Please refresh the page and try again.');
         console.log(err);
     });
 
@@ -20,27 +22,26 @@ function initialize() {
     return peer;
 }
 
-
-function listen(client, subscriberMap) {
-    client.on('data', (response) => {
-        const parsed = JSON.parse(response);
-        if (parsed.action.includes(RETRIEVED_TAG)) {
-            return;
-        }
-
-        const subscribers = subscriberMap[parsed.action];
-        if (subscribers && subscribers.length) {
-            subscribers.forEach(s => s.onAction(parsed.data));
-        }
-
-        client.send(JSON.stringify({action: parsed.action + RETRIEVED_TAG, data: {}}));
-    });
-}
-
 export class OnlineBroker {
     constructor() {
         this.subscriberMap = {};
-     }
+    }
+    
+    listen() {
+        this.client.on('data', (response) => {
+            const parsed = JSON.parse(response);
+            if (parsed.action.includes(RETRIEVED_TAG)) {
+                return;
+            }
+    
+            const subscribers = this.subscriberMap[parsed.action];
+            if (subscribers && subscribers.length) {
+                subscribers.forEach(s => s.onAction(parsed.data));
+            }
+    
+            this.client.send(JSON.stringify({action: parsed.action + RETRIEVED_TAG, data: {}}));
+        });
+    }
 
     creatSession(onGameId, onConnected) {
         this.peer = initialize();
@@ -49,7 +50,7 @@ export class OnlineBroker {
             onGameId(gameId);
             this.peer.on('connection', (client) => {
                 this.client = client;
-                listen(this.client, this.subscriberMap);
+                this.listen();
                 onConnected();
             });
         });
@@ -66,7 +67,7 @@ export class OnlineBroker {
             this.client = this.peer.connect(gameId, { reliable: true });
             this.client.on('open', () => {
                 console.log('Connected to ' + this.client.peer);
-                listen(this.client, this.subscriberMap);
+                this.listen();
                 onConnected();
             });
         });
@@ -91,6 +92,7 @@ export class OnlineBroker {
             subscribers = [];
         }
 
+        console.log(`Adding subscriber action ${action}`);
         subscribers.push({ onAction });
         this.subscriberMap[action] = subscribers;
     }

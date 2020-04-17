@@ -4,15 +4,24 @@ import { Players } from "../game.constants.js";
 export class Settings extends Component {
     constructor(gameService) {
         super(() => {
+            this.state = null;
             this.gameService = gameService;
             this.shareUrl = '';
             this.urlParams = new URLSearchParams(window.location.search);
 
-            if (this.urlParams.has('session')) {
+            if (this.gameService.hasGameSession()) {
+                const session = this.gameService.getNewGameSession();
+                console.log(`Starting new game with previous session: ${JSON.stringify(session)}`);
+                this.attr.options.onStartGame(session);
+            } else if (this.urlParams.has('session')) {
                 const gameId = this.urlParams.get('session');
                 this.gameService.connectSession(
                     gameId,
-                    () => this.attr.options.onStartGame({ player: Players.Yellow, online: true })
+                    (playerGoingNext) => {
+                        const session = { player: Players.Yellow, online: true, playerGoingNext: playerGoingNext };
+                        this.attr.options.onStartGame(session);
+                        this.gameService.saveGameSession(session);
+                    }
                 );
             }
 
@@ -21,13 +30,19 @@ export class Settings extends Component {
                 this.loader = 'Generating game session url...';
                 this.gameService.creatSession(
                     (gameId) => this.onGameId(gameId),
-                    () => this.attr.options.onStartGame({ player: Players.Red, online: true })
+                    (playerGoingNext) => {
+                        const session = { player: Players.Red, online: true, playerGoingNext: playerGoingNext };
+                        this.attr.options.onStartGame(session);
+                        this.gameService.saveGameSession(session);
+                    }
                 );
             });
 
             super.onClick('#offline-mode', () => {
                 super.setClass('#online-options', 'hide', true);
-                this.attr.options.onStartGame({ player: null, online: false });
+                const session = { player: null, online: false };
+                this.attr.options.onStartGame(session);
+                this.gameService.saveGameSession(session);
             });
         });
     }

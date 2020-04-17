@@ -20,6 +20,45 @@ const services = {
     'gameService': gameService
 }
 
-const app = new Engine(document.getElementById('main'), components, services);
+let app = { destroy: () => true };
 
-app.render();
+function render() {
+    resetBtn.classList.add('hide');
+    const main = document.getElementById('main');
+
+    main.classList.add('hide');
+    app.destroy();
+    gameService.flushSubscribers();
+
+    Array.from(main.querySelector('game')).forEach((e) => e.remove());
+    
+    app = new Engine(document.getElementById('context'), components, services);
+    app.render();
+
+    gameService.retrieveNewGame(() => {
+        console.log('Retrieving new game message!');
+        render();
+    });
+
+    setTimeout(() => {
+        main.classList.remove('hide');
+    }, 100);
+
+    setTimeout(() => {
+        resetBtn.classList.remove('hide');
+    }, 3000);
+}
+
+const resetBtn = document.querySelector('#resetGameBtn');
+
+resetBtn.addEventListener('click', () => {
+    if (gameService.connected) {
+        gameService.sendNewGame(() => {
+            render();
+        });
+    } else {
+        render();
+    }
+});
+
+render();

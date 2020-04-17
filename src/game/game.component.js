@@ -13,7 +13,7 @@ export class Game extends Component {
 
             this.board = {
                 onlinePlayerColor: null,
-                playerGoingNext: this.players[this.turnIndex % 2],
+                playerGoingNext: this.players[Math.round(Math.random()) % 2],
                 onWinner: (winner) => {
                     this.winner = winner;
                     super.setClass('#winner', 'hide', false);
@@ -31,21 +31,32 @@ export class Game extends Component {
                         });
                     }
                 },
-                scope: {}
+                scope: {
+                    date: new Date().toString()
+                }
             };
 
             this.settings = {
-                onStartGame: ({ player, online }) => {
+                onStartGame: (session) => {
+                    const { player, online, playerGoingNext } = session;
+                    this.board.playerGoingNext = playerGoingNext || this.board.playerGoingNext;
+                    this.turnIndex = this.players.indexOf(this.board.playerGoingNext);
                     console.log(`Starting game as ${JSON.stringify(player)} :: online - ${online}`);
+                    
                     this.playerColor = online ? player.name : this.board.playerGoingNext;
                     this.board.onlinePlayerColor = online ? player.name : null;
                     super.setClass('#game-settings', 'hide', true);
                     super.setClass('#game-board', 'hide', false);
+                    return session;
                 }
             }
 
             this.gameService.retrieveMoves((moveData) => {
                 this.board.scope.movePiece(moveData);
+            });
+
+            super.onClick('#resetBtn', () => {
+                this.resetGame();
             });
         });
     }
@@ -53,6 +64,15 @@ export class Game extends Component {
     togglePlayerGoingNext() {
         this.turnIndex++;
         this.board.playerGoingNext = this.players[this.turnIndex % 2];
+    }
+
+    get turnInfo() {
+        let message = this.board.playerGoingNext + '\'s turn';
+        if (this.board.onlinePlayerColor) {
+            message += ` (${this.board.onlinePlayerColor === this.board.playerGoingNext ? 'You' : 'Opponent'})`;
+        }
+    
+        return message;
     }
 
     static services = ['gameService'];
@@ -66,7 +86,7 @@ export class Game extends Component {
             <div class="info-bar">
                 <span id="turn" class="info-bar-item">
                     <span class="bold">
-                        {{this.board.playerGoingNext + 's turn'}}
+                        {{this.turnInfo}}
                     </span>
                 </span>
                 <span id="winner" class="hide info-bar-item">
