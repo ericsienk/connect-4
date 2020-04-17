@@ -92,12 +92,14 @@ export class Game extends Component {
         <div id="game-board" class="hide">
             <div class="info-bar">
                 <new-game></new-game>
-                <div class="turn-icon"></div>
-                <span id="turn" class="info-bar-item">
-                    <span class="bold">
-                        {{this.turnInfo}}
+                <div id="turn">
+                    <div class="turn-icon"></div>
+                    <span class="info-bar-item">
+                        <span class="bold">
+                            {{this.turnInfo}}
+                        </span>
                     </span>
-                </span>
+                </div>
                 <span id="winner" class="hide info-bar-item">
                     <span class="bold">{{this.winner + ' won!'}}</span>
                 </span>
