@@ -44,10 +44,11 @@ game, settings, board {
 
 settings, board {
     max-width: 500px;
-    max-height: 428px;
+    max-height: 430px;
     margin: auto;
     width: 96vw;
     height: 86vw;
+    overflow:hidden
 }
 
 .settings-menu {
@@ -105,73 +106,37 @@ board {
 }
 
 .board-container {
-    display: -webkit-flex;
-    display: flex;
-    flex-direction: row;
-    -webkit-flex-direction: row;
-    flex-wrap: nowrap;
-    -webkit-flex-wrap: nowrap;
-    align-items: stretch;
-    -webkit-box-align: stretch;
     height: 100%;
-}
-
-.board-container .board-column:first-child,
-.board-container .board-column:nth-child(7),
-.board-column piece:first-child,
-.board-column piece:nth-child(6) {
-    flex: 1;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
+    width: 100%;
+    display: table;
 }
 
 .board-column {
-    display: -webkit-flex;
-    display: flex;
-    flex-direction: column;
-    -webkit-flex-direction: column;
-    flex-wrap: nowrap;
-    -webkit-flex-wrap: nowrap;
-    align-items: stretch;
-    -webkit-box-align: stretch;
-    flex-grow: 1;
-    -webkit-flex-grow: 1;
-    flex-shrink: 1;
-    -webkit-flex-shrink: 1;
-    min-height: 0;
+    display: table-cell;
+    width: calc(100% / 7);
     border-radius: 8%;
     transition: all .35s;
 }
 
 piece {
-    flex-grow: 1;
-    -webkit-flex-grow: 1;
-    flex-shrink: 1;
-    -webkit-flex-shrink: 1;
     display: block;
-    min-height: 0;
+    height: calc(100% / 6);
+    padding: 11%;
 }
 
 .slot-container {
-    width: 80%;
-    height: 80%;
-    max-width: 55px;
-    max-height: 55px;
-    margin: 10%;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     cursor: pointer;
     background: #b4c9ff;
     box-shadow: inset 0px 7px 0px 0px #a5a5dc;
-    transform: translate(0, 0);
-    -webkit-transform: translate(0, 0);
 }
 
 .slot {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    -webkit-perspective: 900000px;
-    perspective: 900000px;
 }
 
 .slot.red, .slot.yellow {
